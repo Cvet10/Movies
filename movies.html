@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+</head>
+<body>
+    <h1 class="text-center mt-5">Movie Info APP</h1>
+    <form id="movieForm">
+            <button  type="button" class="btn btn-danger btn-block" id="button"> Search Movie  </button>
+    </form>
+    <div id="result">
+     <h1 id="title"></h1>
+     <p  id="director"></p>
+     <p  id="producer"></p>
+     <p  id="release-date"></p>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
+<script type="text/javascript">
+let button      = document.querySelector('#button')
+let name        = document.querySelector('#title')
+let director    = document.querySelector('#director')
+let producer    = document.querySelector('#producer')
+let releaseDate = document.querySelector('#release-date')
+
+function getInfo() {
+        let randonFilm = Math.floor((Math.random() * 6 ) + 1)
+        let url = 'https://swapi.dev/api/films/' + randonFilm
+axios.get(url).then(response => {
+        updateInfo(response.data)
+})
+}
+
+function updateInfo(data){
+        name.innerText        =  'Title: '        + data.title
+        director.innerText    =  'Director: '     + data.director
+        producer.innerText    =  'Producer: '     + data.producer
+        releaseDate.innerText =  'Release Date: ' + data.release_date                            
+
+}
+button.addEventListener('click', getInfo) 
+</script>
+</body>
+</html>
